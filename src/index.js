@@ -1,7 +1,7 @@
-import ContentProcessor from "./scripts/content-processor";
-import CertificateProcessor from "./scripts/certificate-processor";
-import SponsoredProcessor from "./scripts/sponsored-processor";
-import ElementsManager from "./elements/elements-manager";
+import ContentProcessor from "./scripts/ContentProcessor/content-processor";
+import CertificateProcessor from "./scripts/CertificateProcessor/certificate-processor";
+import SponsoredProcessor from "./scripts/SponsoredProcessor/sponsored-processor";
+import ElementsManager from "./elements/ElementsManager/elements-manager";
 
 
 const elementsManager =  new ElementsManager();

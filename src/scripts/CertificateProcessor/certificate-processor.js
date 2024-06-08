@@ -1,4 +1,4 @@
-import * as markStyles from '../styles/mark.css'
+import * as markStyles from '../../styles/mark.css'
 class CertificateProcessor {
     #elementsManager;
     #elementProcessedAttr = 'element-processed';
