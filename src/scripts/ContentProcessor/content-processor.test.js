@@ -56,10 +56,9 @@ describe('ContentProcessor', () => {
     });
 
     describe('processDomUpdates', () => {
-        test('should process nodes that contain URLs', () => {
+        test('should process nodes that contain URLs and remove sponsored links', () => {
             const mutationObserverMock = jest.fn(function MutationObserver(callback) {
                 this.observe = jest.fn();
-                this.disconnect = jest.fn();
                 this.trigger = (mockedMutationsList) => {
                     callback(mockedMutationsList, this);
                 };
@@ -83,6 +82,7 @@ describe('ContentProcessor', () => {
             mutationObserverMock.mock.instances[0].trigger(mockedMutationsList);
 
             expect(mockCertificateProcessor.processNodeForCertificate).toHaveBeenCalledTimes(2);
+            expect(mockSponsoredProcessor.removeSponsored).toHaveBeenCalledTimes(3);
         });
     });
 });

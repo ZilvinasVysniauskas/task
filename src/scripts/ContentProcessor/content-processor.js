@@ -35,6 +35,7 @@ class ContentProcessor {
             mutation.addedNodes.forEach(node => {
                 if (node.nodeType === Node.ELEMENT_NODE) {
                     const addedSites = node.querySelectorAll('a[href]');
+                    this.#sponsoredProcessor.removeSponsored(node);
                     addedSites.forEach(site => {
                         this.#certificateProcessor.processNodeForCertificate(site);
                     });
