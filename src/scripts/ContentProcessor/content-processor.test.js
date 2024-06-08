@@ -1,27 +1,30 @@
 import ContentProcessor from './content-processor';
 
-const mockCertificateProcessor = {
-    processNodeForCertificate: jest.fn(),
-};
-
-const mockSponsoredProcessor = {
-    removeSponsored: jest.fn(),
-};
-
-const mockElementsManager = {
-    loadInfobox: jest.fn(),
-    loadUnsecureInfoBox: jest.fn(),
-};
-
-const contentProcessor = new ContentProcessor(
-    mockCertificateProcessor,
-    mockSponsoredProcessor,
-    mockElementsManager
-);
-
 describe('ContentProcessor', () => {
-    afterEach(() => {
-        jest.clearAllMocks();
+    let mockCertificateProcessor;
+    let mockSponsoredProcessor;
+    let mockElementsManager;
+    let contentProcessor;
+
+    beforeEach(() => {
+        mockCertificateProcessor = {
+            processNodeForCertificate: jest.fn(),
+        };
+
+        mockSponsoredProcessor = {
+            removeSponsored: jest.fn(),
+        };
+
+        mockElementsManager = {
+            loadInfobox: jest.fn(),
+            loadUnsecureInfoBox: jest.fn(),
+        };
+
+        contentProcessor = new ContentProcessor(
+            mockCertificateProcessor,
+            mockSponsoredProcessor,
+            mockElementsManager
+        );
     });
 
     describe('loadInitialElement', () => {
@@ -53,9 +56,10 @@ describe('ContentProcessor', () => {
     });
 
     describe('processDomUpdates', () => {
-        test('should process nodes that contains urls', () => {
+        test('should process nodes that contain URLs', () => {
             const mutationObserverMock = jest.fn(function MutationObserver(callback) {
                 this.observe = jest.fn();
+                this.disconnect = jest.fn();
                 this.trigger = (mockedMutationsList) => {
                     callback(mockedMutationsList, this);
                 };
@@ -64,7 +68,7 @@ describe('ContentProcessor', () => {
             global.MutationObserver = mutationObserverMock;
 
             const nodeWithATag = document.createElement('div');
-            nodeWithATag.innerHTML = '<a href="http://example.com"></a>'
+            nodeWithATag.innerHTML = '<a href="http://example.com"></a>';
             const nodeWithoutATag = document.createElement('div');
 
             const mockedMutationsList = [

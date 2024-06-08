@@ -1,4 +1,5 @@
 import ElementsManager from './elements-manager';
+
 describe('ElementsManager', () => {
     let elementsManager;
 
@@ -8,22 +9,24 @@ describe('ElementsManager', () => {
     });
 
     describe('loadUnsecureInfoBox()', () => {
-        test('should create and append unsecureEnterBox with propper content', () => {
+        test('should create and append unsecureEnterBox with proper content', () => {
             elementsManager.loadUnsecureInfoBox();
-            const unsecureEnterBox = document.body.querySelector('div')
-            expect(unsecureEnterBox).not.toBeNull()
+            const unsecureEnterBox = document.body.querySelector('div');
+            expect(unsecureEnterBox).not.toBeNull();
             expect(unsecureEnterBox.querySelectorAll('h3').length).toBe(1);
             expect(unsecureEnterBox.querySelectorAll('p').length).toBe(1);
             expect(unsecureEnterBox.querySelectorAll('button').length).toBe(2);
         });
+
         test('should register click listener for closeButton and on click hide box and reveal overflow', () => {
             elementsManager.loadUnsecureInfoBox();
-            const unsecureEnterBox = document.body.querySelector('div')
+            const unsecureEnterBox = document.body.querySelector('div');
             const closeButton = unsecureEnterBox.querySelector('#closeButton');
 
             closeButton.dispatchEvent(new MouseEvent('click'));
-            expect(unsecureEnterBox.style.display).toBe('none')
-            expect(document.body.style.overflow).toBe('auto')
+
+            expect(unsecureEnterBox.style.display).toBe('none');
+            expect(document.body.style.overflow).toBe('auto');
         });
     });
 
@@ -46,7 +49,7 @@ describe('ElementsManager', () => {
     });
 
     describe('revealInfoBox()', () => {
-        test('should display infoBox with website is secure text when website is secure', () => {
+        test('should display infoBox with "website is secure" text when website is secure', () => {
             elementsManager.loadInfobox();
             const infoBox = document.body.querySelector('div');
 
@@ -54,9 +57,11 @@ describe('ElementsManager', () => {
             document.body.appendChild(parentIcon);
 
             elementsManager.revealInfoBox(true, parentIcon);
+
             expect(infoBox.innerHTML).toBe('website is secure');
         });
-        test('should display infoBox with not secure website text when website is not secure', () => {
+
+        test('should display infoBox with "not secure website" text when website is not secure', () => {
             elementsManager.loadInfobox();
             const infoBox = document.body.querySelector('div');
 
@@ -64,6 +69,7 @@ describe('ElementsManager', () => {
             document.body.appendChild(parentIcon);
 
             elementsManager.revealInfoBox(false, parentIcon);
+
             expect(infoBox.innerHTML).toBe('not secure website');
         });
     });
@@ -72,11 +78,11 @@ describe('ElementsManager', () => {
         test('should remove style', () => {
             elementsManager.loadInfobox();
             const infoBox = document.body.querySelector('div');
-            expect(infoBox.classList.length).toBe(1)
+            expect(infoBox.classList.length).toBe(1);
 
             elementsManager.hideInfoBox();
 
-            expect(infoBox.classList.length).toBe(0)
+            expect(infoBox.classList.length).toBe(0);
         });
     });
 });

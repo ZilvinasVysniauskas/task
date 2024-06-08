@@ -1,8 +1,9 @@
 import CertificateProcessor from "./certificate-processor";
 
 describe('CertificateProcessor', () => {
-    let certificateProcessor;
     let elementsManagerMock;
+
+    let certificateProcessor;
 
     beforeEach(() => {
         elementsManagerMock = {
@@ -12,52 +13,46 @@ describe('CertificateProcessor', () => {
             hideInfoBox: jest.fn(),
             revealUnsecureEnterBox: jest.fn()
         };
-
-        certificateProcessor =  new CertificateProcessor(elementsManagerMock)
-    })
-
-    afterEach(() => {
-        jest.clearAllMocks();
+        certificateProcessor = new CertificateProcessor(elementsManagerMock);
     });
 
     describe('processNodeForCertificate', () => {
-        test('should add element-processed attr', () => {
+        test('should add element-processed attribute', () => {
             const mockElement = createMockElement(true);
             certificateProcessor.processNodeForCertificate(mockElement);
-            expect(mockElement.hasAttribute('element-processed')).toBeTruthy()
+            expect(mockElement.hasAttribute('element-processed')).toBeTruthy();
         });
 
-        test('should not process if element contains element-processed attr', () => {
+        test('should not process if element contains element-processed attribute', () => {
             const mockElement = createMockElement(true);
             mockElement.setAttribute('element-processed', 'true');
-
             const previousOuterHtml = mockElement.outerHTML;
 
             certificateProcessor.processNodeForCertificate(mockElement);
             expect(mockElement.outerHTML).toBe(previousOuterHtml);
         });
 
-        test('should insert secure icon svg if url starts with https', () => {
+        test('should insert secure icon SVG if URL starts with https', () => {
             const mockElement = createMockElement(true);
             certificateProcessor.processNodeForCertificate(mockElement);
             expect(mockElement.querySelector('svg').outerHTML).toBe('<svg>Secure Icon</svg>');
         });
 
-        test('should insert not secure icon svg if url start with http', () => {
+        test('should insert not secure icon SVG if URL starts with http', () => {
             const mockElement = createMockElement(false);
             certificateProcessor.processNodeForCertificate(mockElement);
             expect(mockElement.querySelector('svg').outerHTML).toBe('<svg>Not Secure Icon</svg>');
         });
 
-        test('should remove href from unsecure url', () => {
+        test('should remove href from insecure URL', () => {
             const mockElement = createMockElement(false);
             certificateProcessor.processNodeForCertificate(mockElement);
             expect(mockElement.hasAttribute('href')).toBeFalsy();
         });
 
-        test('should add click event listener', () => {
+        test('should add click event listener for insecure URL', () => {
             const mockElement = createMockElement(false);
-            const url = mockElement.getAttribute('href')
+            const url = mockElement.getAttribute('href');
             certificateProcessor.processNodeForCertificate(mockElement);
 
             mockElement.dispatchEvent(new MouseEvent('click'));
@@ -76,13 +71,12 @@ describe('CertificateProcessor', () => {
             markIcon.dispatchEvent(new MouseEvent('mouseleave'));
             expect(elementsManagerMock.hideInfoBox).toHaveBeenCalledTimes(1);
         });
-    })
-
-})
+    });
+});
 
 const createMockElement = (isSecure) => {
     const mockElement = document.createElement('a');
     mockElement.setAttribute('href', `${isSecure ? 'https' : 'http'}://example.com`);
     mockElement.innerHTML = '<h3>title</h3>';
     return mockElement;
-}
+};

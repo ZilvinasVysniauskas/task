@@ -4,7 +4,7 @@ import SponsoredProcessor from "./scripts/SponsoredProcessor/sponsored-processor
 import ElementsManager from "./elements/ElementsManager/elements-manager";
 
 
-const elementsManager =  new ElementsManager();
+const elementsManager = new ElementsManager();
 const contentProcessor = new ContentProcessor(new CertificateProcessor(elementsManager), new SponsoredProcessor(), elementsManager);
 
 contentProcessor.loadInitialElement();

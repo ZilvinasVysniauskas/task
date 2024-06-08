@@ -1,11 +1,5 @@
 import SponsoredProcessor from './sponsored-processor';
 
-const createMockElement = (html) => {
-    const element = document.createElement('div');
-    element.innerHTML = html;
-    return element;
-};
-
 describe('SponsoredProcessor', () => {
     let sponsoredProcessor;
 
@@ -14,12 +8,17 @@ describe('SponsoredProcessor', () => {
     });
 
     describe('removeSponsored', () => {
-        test('should remove elements with "sponsored" text', () => {
-            const htmlContent = `<div><span>Sponsored</span></div><div><span>not-sponsored</span></div>`;
-            const mockElement = createMockElement(htmlContent);
+        test('should remove elements containing "Sponsored" text', () => {
+            const mockElement = document.createElement('div');
+            mockElement.innerHTML = `
+                <div><span>Sponsored</span></div>
+                <div><span>not-sponsored</span></div>
+            `;
+
             sponsoredProcessor.removeSponsored(mockElement);
-            expect(mockElement.outerHTML).not.toMatch(/Sponsored/);
-            expect(mockElement.outerHTML).toMatch(/not-sponsored/);
+
+            expect(mockElement.outerHTML).not.toContain('Sponsored');
+            expect(mockElement.outerHTML).toContain('not-sponsored');
         });
     });
 });

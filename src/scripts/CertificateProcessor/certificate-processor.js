@@ -1,4 +1,5 @@
-import * as markStyles from '../../styles/mark.css'
+import * as markStyles from '../../styles/mark.css';
+
 class CertificateProcessor {
     #elementsManager;
     #elementProcessedAttr = 'element-processed';
@@ -11,29 +12,37 @@ class CertificateProcessor {
         if (!element.hasAttribute(this.#elementProcessedAttr)) {
             const linkUrl = element.getAttribute('href');
             const linkTextElement = element.querySelector('h3');
+
             if (linkTextElement && !linkUrl.startsWith('https://www.google.com/search?')) {
                 if (linkUrl.startsWith('https')) {
-                    this.#insertMarkToElement(linkTextElement, true)
+                    this.#insertMarkToElement(linkTextElement, true);
                 } else if (linkUrl.startsWith('http')) {
-                    this.#insertMarkToElement(linkTextElement, false)
-                    this.#processInsecureElement(element, linkUrl)
+                    this.#insertMarkToElement(linkTextElement, false);
+                    this.#processInsecureElement(element, linkUrl);
                 }
             }
-            element.setAttribute(this.#elementProcessedAttr, 'true')
+
+            element.setAttribute(this.#elementProcessedAttr, 'true');
         }
     }
 
     #insertMarkToElement(element, isPositive) {
         const newElement = document.createElement('div');
         const svg = isPositive ? this.#elementsManager.secureUrlIcon : this.#elementsManager.notSecureUrlIcon;
-        newElement.innerHTML = `<div class="${markStyles.mark}"><h3>${element.innerHTML}<span>${svg}</span></h3></div>`;
+        newElement.innerHTML = `
+            <div class="${markStyles.mark}">
+                <h3>${element.innerHTML}<span>${svg}</span></h3>
+            </div>
+        `;
+
         const markIcon = newElement.querySelector('span');
-        markIcon.addEventListener("mouseenter", () => {
+        markIcon.addEventListener('mouseenter', () => {
             this.#elementsManager.revealInfoBox(isPositive, markIcon);
         });
-        markIcon.addEventListener("mouseleave", () => {
+        markIcon.addEventListener('mouseleave', () => {
             this.#elementsManager.hideInfoBox();
         });
+
         element.parentNode.replaceChild(newElement, element);
     }
 
