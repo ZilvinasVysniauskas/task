@@ -70,10 +70,11 @@ describe('ContentProcessor', () => {
             const nodeWithATag = document.createElement('div');
             nodeWithATag.innerHTML = '<a href="http://example.com"></a>';
             const nodeWithoutATag = document.createElement('div');
+            const textNode = document.createTextNode('some text');
 
             const mockedMutationsList = [
                 {
-                    addedNodes: [nodeWithATag, nodeWithATag, nodeWithoutATag],
+                    addedNodes: [nodeWithATag, nodeWithATag, nodeWithoutATag, textNode],
                 },
             ];
 
