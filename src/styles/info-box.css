@@ -1,0 +1,17 @@
+.infoBox {
+    width: 100px;
+    padding: 5px;
+    background-color: gray;
+    color: white;
+    visibility: hidden;
+    position: absolute;
+    z-index: 999;
+    opacity: 0;
+}
+
+
+.infoBoxVisible {
+    transition: opacity 0.2s ease-in-out;
+    visibility: visible;
+    opacity: 1;
+}
