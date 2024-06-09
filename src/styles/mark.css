@@ -8,7 +8,7 @@
 }
 
 .mark span {
-  display: inline-flex;
+  position: absolute;
   margin-left: 5px;
-  vertical-align: middle;
+  margin-top: 4px;
 }
