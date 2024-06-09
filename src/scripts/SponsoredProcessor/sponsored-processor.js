@@ -1,11 +1,8 @@
 class SponsoredProcessor {
     removeSponsored(element) {
-        const sponsoredMarkers = element.querySelectorAll('span')
-        for (let marker of sponsoredMarkers) {
-            if (marker.textContent.trim().toLowerCase() === 'sponsored') {
-                marker.parentNode.remove();
-            }
-        }
+        const sponsoredMarkers = element.querySelectorAll('.uEierd')
+        sponsoredMarkers.forEach(marker => marker.remove());
+
     };
 }
 

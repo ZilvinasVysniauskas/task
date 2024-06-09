@@ -8,10 +8,10 @@ describe('SponsoredProcessor', () => {
     });
 
     describe('removeSponsored', () => {
-        test('should remove elements containing "Sponsored" text', () => {
+        test('should remove elements containing "uEierd" class', () => {
             const mockElement = document.createElement('div');
             mockElement.innerHTML = `
-                <div><span>Sponsored</span></div>
+                <div class="uEierd"><span>Sponsored</span></div>
                 <div><span>not-sponsored</span></div>
             `;
 

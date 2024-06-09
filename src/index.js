@@ -4,7 +4,7 @@ import SponsoredProcessor from "./scripts/SponsoredProcessor/sponsored-processor
 import ElementsManager from "./elements/ElementsManager/elements-manager";
 
 
-if (!window.location.href.startsWith("https://www.google.com/search?")) {
+if (!/^https:\/\/www\.google\.[a-z]{2,}\/search\?/.test(window.location.href)) {
     console.log("This script must be used on a Google search page.");
 } else {
     const elementsManager = new ElementsManager();
